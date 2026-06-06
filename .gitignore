@@ -1,0 +1,15 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+.env
+*.egg-info/
+
+# Node
+node_modules/
+.next/
+.vercel/
+
+# IDE
+.DS_Store
+.vscode/
