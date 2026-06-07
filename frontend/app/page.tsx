@@ -11,6 +11,8 @@ import { MetricCard } from "@/components/ui/MetricCard";
 import { Header } from "@/components/ui/Header";
 import { Sidebar } from "@/components/ui/Sidebar";
 
+export const dynamic = "force-dynamic";
+
 // This is a Server Component — data fetching happens on the server
 export default async function DashboardPage() {
   // Fetch all data in parallel (Promise.all = run simultaneously, not one-by-one)
