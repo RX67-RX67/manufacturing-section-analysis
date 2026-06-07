@@ -11,7 +11,7 @@ FRED_BASE = "https://api.stlouisfed.org/fred/series/observations"
 # Key = our internal name, value = FRED's series code
 FRED_SERIES = {
     "IPMAN":          "Industrial Production: Manufacturing",
-    "CAPUTLMFG":      "Capacity Utilization: Manufacturing",
+    "MCUMFN":         "Capacity Utilization: Manufacturing",
     "MANEMP":         "Manufacturing Employment",
     "CES3000000008":  "Avg Hourly Earnings: Manufacturing",
 }

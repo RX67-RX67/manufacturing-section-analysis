@@ -77,7 +77,7 @@ def _fetch_chart_data(report_key: str) -> list[dict]:
     if report_key == "chart:production":
         return db.get_fred_series("IPMAN")[-24:]
     elif report_key == "chart:capacity":
-        return db.get_fred_series("CAPUTLMFG")[-24:]
+        return db.get_fred_series("MCUMFN")[-24:]
     elif report_key == "chart:employment":
         return db.get_fred_series("MANEMP")[-24:]
     elif report_key == "chart:wages":
