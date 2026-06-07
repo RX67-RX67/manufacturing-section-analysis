@@ -46,6 +46,9 @@ def normalize(records: list[dict], value_col: str = "value") -> list[dict]:
     df["date"] = df["date"].dt.strftime("%Y-%m-%d")
 
     # Replace NaN with None (Python's null) — pandas NaN is not JSON serializable
-    df = df.where(pd.notnull(df), None)
-
-    return df.to_dict("records")
+    import math
+    records = df.to_dict("records")
+    return [
+        {k: (None if isinstance(v, float) and math.isnan(v) else v) for k, v in row.items()}
+        for row in records
+    ]
