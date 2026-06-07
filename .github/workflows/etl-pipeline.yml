@@ -1,0 +1,43 @@
+name: ETL Pipeline
+
+on:
+  # Run automatically on a schedule
+  schedule:
+    - cron: '0 8 * * 2'   # Minute Hour Day Month Weekday
+                            # 0 8 * * 2 = 8:00am UTC every Tuesday
+  # Also allow manual trigger from the GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  etl:
+    runs-on: ubuntu-latest    # Use GitHub's free Ubuntu VM
+
+    steps:
+      # Step 1: check out your code (the VM starts with no files)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: install Python 3.12
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'         # cache pip downloads to speed up future runs
+
+      # Step 3: install Python packages
+      - name: Install dependencies
+        run: pip install -r etl/requirements.txt
+
+      # Step 4: run the pipeline
+      # All API keys come from GitHub repository Secrets (not stored in code)
+      - name: Run ETL pipeline
+        run: python etl/pipeline.py
+        env:
+          FRED_API_KEY:         ${{ secrets.FRED_API_KEY }}
+          BLS_API_KEY:          ${{ secrets.BLS_API_KEY }}
+          BEA_API_KEY:          ${{ secrets.BEA_API_KEY }}
+          CENSUS_API_KEY:       ${{ secrets.CENSUS_API_KEY }}
+          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          BACKEND_URL:          ${{ secrets.BACKEND_URL }}
+          REPORT_SECRET:        ${{ secrets.REPORT_SECRET }}
