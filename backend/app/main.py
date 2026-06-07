@@ -11,7 +11,7 @@ app = FastAPI(title="US Manufacturing Dashboard API")
 # CORS: allow the frontend (on a different domain) to call this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # in production, restrict to your Vercel URL
+    allow_origins=["https://manufacturing-section-analysis.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
