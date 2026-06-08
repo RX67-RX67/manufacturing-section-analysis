@@ -66,32 +66,32 @@ export default async function DashboardPage() {
         </div>
 
         {/* Chart + Report pairs */}
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div id="production" className="grid grid-cols-2 gap-6 mb-6">
           <ProductionChart data={production} />
           <ReportPanel reportKey="chart:production" />
         </div>
 
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div id="employment" className="grid grid-cols-2 gap-6 mb-6">
           <EmploymentChart data={employment} />
           <ReportPanel reportKey="chart:employment" />
         </div>
 
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div id="capacity" className="grid grid-cols-2 gap-6 mb-6">
           <CapacityGauge data={capacity} />
           <ReportPanel reportKey="chart:capacity" />
         </div>
 
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div id="orders" className="grid grid-cols-2 gap-6 mb-6">
           <OrdersChart data={censusData} />
           <ReportPanel reportKey="chart:orders" />
         </div>
 
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div id="wages" className="grid grid-cols-2 gap-6 mb-6">
           <WagesChart data={wages} />
           <ReportPanel reportKey="chart:wages" />
         </div>
 
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div id="gdp" className="grid grid-cols-2 gap-6 mb-6">
           <GdpShareChart data={bea} />
           <ReportPanel reportKey="chart:gdp" />
         </div>
