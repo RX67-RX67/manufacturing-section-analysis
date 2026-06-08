@@ -139,7 +139,7 @@ def _generate_chart_report(client: anthropic.Anthropic, report_key: str, data_ha
 
     message = client.messages.create(
         model=MODEL,
-        max_tokens=200,
+        max_tokens=400,
         messages=[{"role": "user", "content": prompt}],
     )
     content = message.content[0].text
@@ -175,7 +175,7 @@ def _generate_summary(client: anthropic.Anthropic, data_hash: str):
 
     message = client.messages.create(
         model=MODEL,
-        max_tokens=900,
+        max_tokens=600,
         messages=[{"role": "user", "content": prompt}],
     )
     content = message.content[0].text
