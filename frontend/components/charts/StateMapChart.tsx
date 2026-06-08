@@ -15,11 +15,12 @@ interface Props {
 // quantile scale — a lightweight "cluster analysis" so regional patterns
 // read at a glance instead of blending into a smooth gradient.
 //
-// Metallic bronze-to-gold gradient: a warm progression from dark bronze
-// through copper and brass to bright gold and pale champagne. Every tone is
-// warm and light enough to stand out clearly against the cool, dark navy
-// dashboard background (avoiding the blending issue of earlier palettes).
-const CLUSTER_COLORS = ["#7a4a23", "#a9703f", "#c89b5a", "#e0bc7a", "#f5dca3"];
+// Light-to-deep blue gradient, in the same family as the dashboard's accent
+// color (#3b82f6). Both ends stay light/saturated enough to stand out
+// against the cool dark-navy background — the dark-slate "lowest" tone from
+// an earlier blue palette blended into it, so this one runs light -> deep
+// rather than dark -> light.
+const CLUSTER_COLORS = ["#bfdbfe", "#93c5fd", "#60a5fa", "#3b82f6", "#1d4ed8"];
 const CLUSTER_LABELS = ["Lowest", "Low", "Moderate", "High", "Highest"];
 
 export function StateMapChart({ data }: Props) {
