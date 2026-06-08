@@ -75,7 +75,7 @@ def main():
     # Map each chart report to the data it depends on
     report_data_map = {
         "chart:production":   [r for r in fred_records  if r.get("series_id") == "IPMAN"],
-        "chart:capacity":     [r for r in fred_records  if r.get("series_id") == "CAPUTLMFG"],
+        "chart:capacity":     [r for r in fred_records  if r.get("series_id") == "MCUMFN"],
         "chart:employment":   [r for r in fred_records  if r.get("series_id") == "MANEMP"],
         "chart:wages":        [r for r in fred_records  if r.get("series_id") == "CES3000000008"],
         "chart:bls_jobs":     bls_records,

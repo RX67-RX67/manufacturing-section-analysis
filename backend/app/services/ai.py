@@ -13,7 +13,7 @@ CHART_PROMPTS = {
         "manufacturing output volume relative to 2017 baseline"
     ),
     "chart:capacity": (
-        "Capacity Utilization: Manufacturing (CAPUTLMFG)",
+        "Capacity Utilization: Manufacturing (MCUMFN)",
         "percentage of manufacturing capacity currently in use"
     ),
     "chart:employment": (
