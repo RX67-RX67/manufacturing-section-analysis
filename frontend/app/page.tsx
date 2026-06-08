@@ -16,16 +16,21 @@ export const dynamic = "force-dynamic";
 // This is a Server Component — data fetching happens on the server
 export default async function DashboardPage() {
   // Fetch all data in parallel (Promise.all = run simultaneously, not one-by-one)
-  const [production, employment, capacity, orders, wages, bea, lastUpdated] =
+  const [production, employment, capacity, shipments, orders, inventories, wages, bea, lastUpdated] =
     await Promise.all([
       api.fred("IPMAN", "2020-01-01"),
       api.fred("MANEMP", "2020-01-01"),
-      api.fred("CAPUTLMFG", "2020-01-01"),
+      api.fred("MCUMFN", "2020-01-01"),
+      api.census("shipments"),
       api.census("orders"),
+      api.census("inventories"),
       api.fred("CES3000000008", "2020-01-01"),
       api.bea("T10306"),
       api.lastUpdated(),
     ]);
+
+  // OrdersChart needs all three categories merged by date
+  const censusData = [...shipments, ...orders, ...inventories];
 
   // Get the most recent data point for KPI cards
   const latestProd  = production.at(-1);
@@ -75,7 +80,7 @@ export default async function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-6 mb-6">
-          <OrdersChart data={orders} />
+          <OrdersChart data={censusData} />
           <ReportPanel reportKey="chart:orders" />
         </div>
 

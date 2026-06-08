@@ -52,7 +52,7 @@ def get_census_data(category: str, industry: str = "MDM", start: str = None, end
     client = get_client()
     query = (
         client.table("census_m3")
-        .select("date, value, mom_pct, yoy_pct")
+        .select("date, value, mom_pct, yoy_pct, category")
         .eq("category", category)
         .eq("industry", industry)
         .order("date")

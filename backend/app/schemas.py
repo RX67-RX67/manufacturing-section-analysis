@@ -8,6 +8,7 @@ class MetricPoint(BaseModel):
     value: float
     mom_pct: Optional[float] = None
     yoy_pct: Optional[float] = None
+    category: Optional[str] = None
 
 
 class ReportResponse(BaseModel):

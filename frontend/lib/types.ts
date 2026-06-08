@@ -3,6 +3,7 @@ export interface MetricPoint {
   value: number;
   mom_pct?: number | null;
   yoy_pct?: number | null;
+  category?: string | null;
 }
 
 export interface Report {
