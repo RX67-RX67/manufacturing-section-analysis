@@ -1,8 +1,9 @@
+import hashlib
+import os
 from fastapi import APIRouter, HTTPException, Header, BackgroundTasks
 from ..schemas import ReportResponse, ReportRefreshRequest
 from ..services import data as db
-from ..services.ai import generate_report
-import os
+from ..services.ai import generate_report, PROMPT_VERSION
 
 router = APIRouter(prefix="/api/reports", tags=["reports"])
 
@@ -41,7 +42,13 @@ def refresh_report(
     if x_report_secret != os.environ["REPORT_SECRET"]:
         raise HTTPException(status_code=403, detail="Invalid secret")
 
-    # Check if data has changed by comparing hash
+    # Fold PROMPT_VERSION into the comparison hash so that editing a prompt
+    # template invalidates the cache too — not just changes to the source
+    # data. Otherwise the pipeline would keep sending the same data_hash and
+    # we'd keep serving a stale report generated under the old prompt.
+    cache_key = hashlib.md5(f"{body.data_hash}:{PROMPT_VERSION}".encode()).hexdigest()
+
+    # Check if data (or the prompt) has changed by comparing hash
     client = db.get_client()
     existing = (
         client.table("ai_reports")
@@ -49,9 +56,9 @@ def refresh_report(
         .eq("report_key", body.report_key)
         .execute()
     )
-    if existing.data and existing.data[0]["data_hash"] == body.data_hash:
+    if existing.data and existing.data[0]["data_hash"] == cache_key:
         return {"status": "skipped", "reason": "data unchanged"}
 
     # Run report generation in the background (doesn't block the HTTP response)
-    background_tasks.add_task(generate_report, body.report_key, body.data_hash)
+    background_tasks.add_task(generate_report, body.report_key, cache_key)
     return {"status": "queued", "report_key": body.report_key}
