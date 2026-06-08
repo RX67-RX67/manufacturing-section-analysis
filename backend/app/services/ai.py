@@ -51,25 +51,27 @@ Key statistics:
 - Month-over-month change: {mom_pct}%
 - Year-over-year change: {yoy_pct}%
 
-Write a concise 2-3 paragraph analysis of this metric. Include:
+In one short paragraph, cover:
 1. What the current level and trend indicate
 2. What the month-over-month and year-over-year changes signal
 3. What this means for overall manufacturing health
 
 Tone: professional, data-driven, accessible to a non-economist reader.
-Format: prose paragraphs only, no bullet points or headers."""
+Format: prose only, no bullet points or headers.
+Hard limit: under 100 words total. Be concise — do not pad."""
 
 SUMMARY_PROMPT = """You are a senior economic analyst covering U.S. manufacturing.
 
-Below are summaries of key manufacturing indicators. Write a 3-4 paragraph executive
+Below are summaries of key manufacturing indicators. Write a brief executive
 summary covering: overall sector health, labor market conditions,
 production and capacity trends, order book dynamics, and GDP contribution.
-Conclude with a brief forward-looking observation.
+Conclude with a one-sentence forward-looking observation.
 
 Indicator data:
 {indicators_json}
 
-Tone: authoritative but accessible. Prose paragraphs only, no headers or bullets."""
+Tone: authoritative but accessible. Prose paragraphs only, no headers or bullets.
+Hard limit: under 500 words total. Be concise — do not pad."""
 
 
 def _fetch_chart_data(report_key: str) -> list[dict]:
@@ -130,7 +132,7 @@ def _generate_chart_report(client: anthropic.Anthropic, report_key: str, data_ha
 
     message = client.messages.create(
         model=MODEL,
-        max_tokens=600,
+        max_tokens=200,
         messages=[{"role": "user", "content": prompt}],
     )
     content = message.content[0].text
@@ -166,7 +168,7 @@ def _generate_summary(client: anthropic.Anthropic, data_hash: str):
 
     message = client.messages.create(
         model=MODEL,
-        max_tokens=800,
+        max_tokens=900,
         messages=[{"role": "user", "content": prompt}],
     )
     content = message.content[0].text
