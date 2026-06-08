@@ -103,7 +103,9 @@ export default async function DashboardPage() {
         </div>
 
         {/* Full-width executive summary */}
-        <SummaryReport />
+        <div id="summary">
+          <SummaryReport />
+        </div>
       </main>
     </div>
   );

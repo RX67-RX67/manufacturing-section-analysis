@@ -8,6 +8,7 @@ const sections = [
   { label: "Wages",       href: "#wages" },
   { label: "GDP",         href: "#gdp" },
   { label: "State Map",   href: "#map" },
+  { label: "Summary",     href: "#summary" },
 ];
 
 export function Sidebar() {
