@@ -15,7 +15,7 @@ export function GdpShareChart({ data }: { data: any[] }) {
       <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--muted)" }}>
         MANUFACTURING VALUE ADDED ($B, QUARTERLY)
       </h3>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={340}>
         <AreaChart data={mfgData}>
           <defs>
             <linearGradient id="gdpGrad" x1="0" y1="0" x2="0" y2="1">

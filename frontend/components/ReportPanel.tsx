@@ -23,7 +23,7 @@ export async function ReportPanel({ reportKey }: Props) {
         AI ANALYSIS
       </h3>
       <div
-        className="text-base leading-relaxed flex-1"
+        className="text-lg leading-relaxed flex-1"
         style={{ color: "var(--text)" }}
       >
         {content.split("\n\n").map((para, i) => (

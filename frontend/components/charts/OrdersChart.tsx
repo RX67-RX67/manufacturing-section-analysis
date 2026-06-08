@@ -25,7 +25,7 @@ export function OrdersChart({ data }: { data: any[] }) {
       <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--muted)" }}>
         SHIPMENTS, ORDERS & INVENTORIES ($M)
       </h3>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={340}>
         <LineChart data={merged}>
           <CartesianGrid strokeDasharray="3 3" stroke="#2a2d3a" />
           <XAxis dataKey="date" tickFormatter={(v) => v.slice(0, 7)} tick={{ fill: "var(--muted)", fontSize: 11 }} interval="preserveStartEnd" />

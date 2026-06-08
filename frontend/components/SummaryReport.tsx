@@ -17,7 +17,7 @@ export async function SummaryReport() {
       <h2 className="text-lg font-bold mb-4" style={{ color: "var(--text)" }}>
         Executive Summary
       </h2>
-      <div className="grid grid-cols-2 gap-6 text-sm leading-relaxed" style={{ color: "var(--text)" }}>
+      <div className="grid grid-cols-2 gap-6 text-lg leading-relaxed" style={{ color: "var(--text)" }}>
         {content.split("\n\n").map((para, i) => (
           <p key={i}>{para}</p>
         ))}

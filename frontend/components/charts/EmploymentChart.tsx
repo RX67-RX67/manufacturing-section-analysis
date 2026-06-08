@@ -10,7 +10,7 @@ export function EmploymentChart({ data }: { data: MetricPoint[] }) {
       <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--muted)" }}>
         MANUFACTURING EMPLOYMENT (thousands)
       </h3>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={340}>
         <AreaChart data={data}>
           <defs>
             {/* Gradient fill under the area */}

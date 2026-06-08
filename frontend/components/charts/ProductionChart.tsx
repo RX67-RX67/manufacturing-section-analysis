@@ -39,7 +39,7 @@ export function ProductionChart({ data }: Props) {
       <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--muted)" }}>
         INDUSTRIAL PRODUCTION
       </h3>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={340}>
         <LineChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#2a2d3a" />
           <XAxis
