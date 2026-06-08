@@ -1,10 +1,12 @@
 import { api } from "@/lib/api";
-import { ProductionChart } from "@/components/charts/ProductionChart";
-import { EmploymentChart } from "@/components/charts/EmploymentChart";
-import { CapacityGauge } from "@/components/charts/CapacityGauge";
-import { OrdersChart } from "@/components/charts/OrdersChart";
-import { WagesChart } from "@/components/charts/WagesChart";
-import { GdpShareChart } from "@/components/charts/GdpShareChart";
+import {
+  ProductionChart,
+  EmploymentChart,
+  CapacityGauge,
+  OrdersChart,
+  WagesChart,
+  GdpShareChart,
+} from "@/components/charts/DynamicCharts";
 import { ReportPanel } from "@/components/ReportPanel";
 import { SummaryReport } from "@/components/SummaryReport";
 import { MetricCard } from "@/components/ui/MetricCard";
