@@ -33,7 +33,7 @@ CHART_PROMPTS = {
         "new manufacturing orders in millions of dollars"
     ),
     "chart:gdp": (
-        "Manufacturing Value Added (BEA NIPA)",
+        "Manufacturing Value Added (BEA GDP by Industry)",
         "manufacturing contribution to GDP in billions of dollars"
     ),
 }
@@ -87,7 +87,7 @@ def _fetch_chart_data(report_key: str) -> list[dict]:
     elif report_key == "chart:orders":
         return db.get_census_data("orders")[-24:]
     elif report_key == "chart:gdp":
-        return db.get_bea_data("T10306")[-12:]  # quarterly, so fewer points
+        return db.get_bea_data("GDPbyIndustry-1")[-12:]  # quarterly, so fewer points
     return []
 
 

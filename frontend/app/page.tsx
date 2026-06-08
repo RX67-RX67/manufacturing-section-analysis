@@ -25,7 +25,7 @@ export default async function DashboardPage() {
       api.census("orders"),
       api.census("inventories"),
       api.fred("CES3000000008", "2020-01-01"),
-      api.bea("T10306"),
+      api.bea("GDPbyIndustry-1"),
       api.lastUpdated(),
     ]);
 

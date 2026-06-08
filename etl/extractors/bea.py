@@ -7,17 +7,28 @@ load_dotenv()
 
 BEA_BASE = "https://apps.bea.gov/api/data"
 
+# The GDPbyIndustry dataset reports quarters as Roman numerals
+QUARTER_MONTH = {"I": "01", "II": "04", "III": "07", "IV": "10"}
 
-def fetch_nipa(table_name: str, frequency: str = "Q", year: str = "ALL") -> list[dict]:
+# Value Added by Industry (TableID 1) from the GDPbyIndustry dataset.
+# Industry code 31G = Manufacturing. (NIPA table T10306, used previously,
+# is a sector breakdown — Business/Households/Government — and has no
+# "Manufacturing" line at all, which is why the chart was empty.)
+TABLE_NAME = "GDPbyIndustry-1"
+INDUSTRY_CODE = "31G"
+
+
+def fetch_value_added(industry: str = INDUSTRY_CODE, frequency: str = "Q", year: str = "ALL") -> list[dict]:
     """
-    Fetch NIPA (National Income and Product Accounts) table from BEA.
-    Returns records for all lines in the table.
+    Fetch quarterly Value Added ($ billions) for one industry from BEA's
+    GDPbyIndustry dataset, Table 1.
     """
     params = {
         "UserID":       os.environ["BEA_API_KEY"],
         "method":       "GetData",
-        "DataSetName":  "NIPA",
-        "TableName":    table_name,
+        "DataSetName":  "GDPbyIndustry",
+        "TableID":      "1",
+        "Industry":     industry,
         "Frequency":    frequency,   # "Q" = quarterly, "A" = annual
         "Year":         year,        # "ALL" = every year available
         "ResultFormat": "JSON",
@@ -34,20 +45,18 @@ def fetch_nipa(table_name: str, frequency: str = "Q", year: str = "ALL") -> list
                 raise
             time.sleep(2 ** attempt)
 
-    # BEA nests data under Results > Data > [list of observations]
-    results = data.get("BEAAPI", {}).get("Results", {}).get("Data", [])
+    # GDPbyIndustry nests data under Results[0] > Data > [list of observations]
+    results = data.get("BEAAPI", {}).get("Results", [])
+    if isinstance(results, list):
+        results = results[0] if results else {}
+    rows = results.get("Data", [])
 
     records = []
-    for item in results:
-        # TimePeriod is like "2024Q1" for quarterly or "2024" for annual
-        period = item.get("TimePeriod", "")
-        if "Q" in period:
-            year_str, quarter = period.split("Q")
-            # Convert quarter to first month of that quarter
-            month = {"1": "01", "2": "04", "3": "07", "4": "10"}[quarter]
-            date_str = f"{year_str}-{month}-01"
-        else:
-            date_str = f"{period}-01-01"  # annual data -> Jan 1 of that year
+    for item in rows:
+        month = QUARTER_MONTH.get(item.get("Quarter", ""))
+        if not month:
+            continue  # skip annual rows; we only want quarterly
+        date_str = f"{item['Year']}-{month}-01"
 
         try:
             value = float(item["DataValue"].replace(",", ""))
@@ -55,8 +64,8 @@ def fetch_nipa(table_name: str, frequency: str = "Q", year: str = "ALL") -> list
             continue
 
         records.append({
-            "table_name": table_name,
-            "line_desc":  item.get("LineDescription", ""),
+            "table_name": TABLE_NAME,
+            "line_desc":  item.get("IndustrYDescription", ""),  # BEA misspells this field
             "date":       date_str,
             "value":      value,
         })
@@ -65,7 +74,7 @@ def fetch_nipa(table_name: str, frequency: str = "Q", year: str = "ALL") -> list
 
 
 def extract_all() -> list[dict]:
-    print("  Fetching BEA NIPA Table T10306 (GDP by industry, quarterly)...")
-    records = fetch_nipa("T10306", frequency="Q")
+    print(f"  Fetching BEA Value Added by Industry — Manufacturing ({INDUSTRY_CODE}, quarterly)...")
+    records = fetch_value_added(INDUSTRY_CODE)
     print(f"    Got {len(records)} observations")
     return records

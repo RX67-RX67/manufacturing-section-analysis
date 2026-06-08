@@ -36,7 +36,7 @@ def get_census(
 
 @router.get("/bea", response_model=list[dict])
 def get_bea(
-    table: str = Query("T10306"),
+    table: str = Query("GDPbyIndustry-1"),
     line:  str = Query(None),
     start: str = Query(None),
     end:   str = Query(None),
