@@ -13,7 +13,7 @@ MODEL = "claude-sonnet-4-6"
 # trigger regeneration even when the underlying data hasn't changed
 # (otherwise the ETL pipeline's unchanged data_hash would make the refresh
 # endpoint skip regeneration and serve stale cached content).
-PROMPT_VERSION = "3"
+PROMPT_VERSION = "4"
 
 CHART_PROMPTS = {
     "chart:production": (
@@ -176,7 +176,7 @@ def _generate_summary(client: anthropic.Anthropic, data_hash: str):
 
     message = client.messages.create(
         model=MODEL,
-        max_tokens=600,
+        max_tokens=800,
         messages=[{"role": "user", "content": prompt}],
     )
     content = message.content[0].text
