@@ -11,7 +11,7 @@ const sections = [
   export function Sidebar() {
     return (
       <nav
-        className="w-40 min-h-screen p-4 flex flex-col gap-1 sticky top-0"
+        className="w-40 min-h-screen self-start p-4 flex flex-col gap-1 sticky top-0"
         style={{ background: "var(--card)" }}
       >
         <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--muted)" }}>
