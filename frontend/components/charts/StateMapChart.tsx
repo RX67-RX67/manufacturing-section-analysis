@@ -14,7 +14,13 @@ interface Props {
 // Discrete tiers (low -> high manufacturing employment) computed via a
 // quantile scale — a lightweight "cluster analysis" so regional patterns
 // read at a glance instead of blending into a smooth gradient.
-const CLUSTER_COLORS = ["#1e293b", "#1d4ed8", "#3b82f6", "#22d3ee", "#5eead4"];
+//
+// Warm-to-cool spectral palette: every tier is a vibrant, light tone that
+// contrasts clearly against the dark dashboard background (a dark-blue
+// "lowest" tone used previously was nearly invisible against it). The
+// "Highest" tier lands on the dashboard's own accent blue, tying the scale
+// back to the site's theme.
+const CLUSTER_COLORS = ["#f87171", "#fb923c", "#facc15", "#4ade80", "#3b82f6"];
 const CLUSTER_LABELS = ["Lowest", "Low", "Moderate", "High", "Highest"];
 
 export function StateMapChart({ data }: Props) {
