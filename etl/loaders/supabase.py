@@ -68,6 +68,18 @@ def upsert_bea(records: list[dict]) -> int:
     return len(result.data)
 
 
+def upsert_state_employment(records: list[dict]) -> int:
+    if not records:
+        return 0
+    client = get_client()
+    result = (
+        client.table("state_manufacturing_employment")
+        .upsert(records, on_conflict="fips,year")
+        .execute()
+    )
+    return len(result.data)
+
+
 def log_etl_run(source: str, status: str, rows_upserted: int = 0, error_msg: str = None):
     """Write one row to the etl_runs audit table."""
     client = get_client()

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
 from ..services import data as db
-from ..schemas import MetricPoint
+from ..schemas import MetricPoint, StatePoint
 
 router = APIRouter(prefix="/api/metrics", tags=["metrics"])
 
@@ -32,6 +32,12 @@ def get_census(
     end:      str = Query(None),
 ):
     return db.get_census_data(category, industry, start, end)
+
+
+@router.get("/state-employment", response_model=list[StatePoint])
+def get_state_employment():
+    """Return manufacturing employment by state (FIPS code) for the latest year available."""
+    return db.get_state_employment()
 
 
 @router.get("/bea", response_model=list[dict])

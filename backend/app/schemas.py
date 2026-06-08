@@ -11,6 +11,12 @@ class MetricPoint(BaseModel):
     category: Optional[str] = None
 
 
+class StatePoint(BaseModel):
+    """One state's value in a cross-sectional snapshot (e.g. employment by state)."""
+    fips: str
+    value: float
+
+
 class ReportResponse(BaseModel):
     """A cached AI report."""
     report_key: str

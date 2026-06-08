@@ -6,6 +6,11 @@ export interface MetricPoint {
   category?: string | null;
 }
 
+export interface StatePoint {
+  fips: string;
+  value: number;
+}
+
 export interface Report {
   report_key: string;
   content: string;

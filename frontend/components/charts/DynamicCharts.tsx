@@ -12,3 +12,4 @@ export const CapacityGauge = dynamic(() => import("./CapacityGauge").then((m) =>
 export const OrdersChart = dynamic(() => import("./OrdersChart").then((m) => m.OrdersChart), { ssr: false });
 export const WagesChart = dynamic(() => import("./WagesChart").then((m) => m.WagesChart), { ssr: false });
 export const GdpShareChart = dynamic(() => import("./GdpShareChart").then((m) => m.GdpShareChart), { ssr: false });
+export const StateMapChart = dynamic(() => import("./StateMapChart").then((m) => m.StateMapChart), { ssr: false });

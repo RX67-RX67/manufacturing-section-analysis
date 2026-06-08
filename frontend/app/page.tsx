@@ -6,6 +6,7 @@ import {
   OrdersChart,
   WagesChart,
   GdpShareChart,
+  StateMapChart,
 } from "@/components/charts/DynamicCharts";
 import { ReportPanel } from "@/components/ReportPanel";
 import { SummaryReport } from "@/components/SummaryReport";
@@ -18,7 +19,7 @@ export const dynamic = "force-dynamic";
 // This is a Server Component — data fetching happens on the server
 export default async function DashboardPage() {
   // Fetch all data in parallel (Promise.all = run simultaneously, not one-by-one)
-  const [production, employment, capacity, shipments, orders, inventories, wages, bea, lastUpdated] =
+  const [production, employment, capacity, shipments, orders, inventories, wages, bea, stateEmployment, lastUpdated] =
     await Promise.all([
       api.fred("IPMAN", "2020-01-01"),
       api.fred("MANEMP", "2020-01-01"),
@@ -28,6 +29,7 @@ export default async function DashboardPage() {
       api.census("inventories"),
       api.fred("CES3000000008", "2020-01-01"),
       api.bea("GDPbyIndustry-1"),
+      api.stateEmployment(),
       api.lastUpdated(),
     ]);
 
@@ -94,6 +96,10 @@ export default async function DashboardPage() {
         <div id="gdp" className="grid grid-cols-2 gap-6 mb-6">
           <GdpShareChart data={bea} />
           <ReportPanel reportKey="chart:gdp" />
+        </div>
+
+        <div id="map" className="mb-6">
+          <StateMapChart data={stateEmployment} />
         </div>
 
         {/* Full-width executive summary */}

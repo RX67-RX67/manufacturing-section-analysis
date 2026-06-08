@@ -1,4 +1,4 @@
-import type { MetricPoint, Report } from "./types";
+import type { MetricPoint, Report, StatePoint } from "./types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -27,6 +27,9 @@ export const api = {
     apiFetch<{ date: string; line_desc: string; value: number }[]>(
       `/api/metrics/bea?table=${table}${line ? `&line=${encodeURIComponent(line)}` : ""}`
     ),
+
+  stateEmployment: () =>
+    apiFetch<StatePoint[]>("/api/metrics/state-employment"),
 
   report: (key: string) =>
     apiFetch<Report>(`/api/reports/${key}`),

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Import our modules
-from extractors import fred, bls, census, bea
+from extractors import fred, bls, census, bea, census_cbp
 from transformers.normalize import normalize
 from loaders import supabase as db
 
@@ -68,6 +68,11 @@ def main():
     bls_records   = run_source("BLS",    bls.extract_all,    normalize, db.upsert_bls)
     census_records= run_source("Census", census.extract_all, normalize, db.upsert_census)
     bea_records   = run_source("BEA",    bea.extract_all,    normalize, db.upsert_bea)
+
+    # State employment is an annual cross-sectional snapshot (one row per
+    # state per year), not a monthly time series — normalize()'s mom/yoy
+    # logic doesn't apply, so pass the records through unchanged.
+    run_source("CensusCBP", census_cbp.extract_all, lambda recs: recs, db.upsert_state_employment)
 
     # --- Trigger AI report regeneration ---
     print("\n=== Triggering AI Report Refresh ===")

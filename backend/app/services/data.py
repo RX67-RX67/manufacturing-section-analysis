@@ -81,6 +81,26 @@ def get_bea_data(table_name: str, line_desc: str = None, start: str = None, end:
     return query.execute().data
 
 
+def get_state_employment() -> list[dict]:
+    """
+    Return manufacturing employment by state (FIPS code) for the most
+    recent year available. This is a cross-sectional snapshot, not a
+    time series, so we just pick the latest year and return one value
+    per state.
+    """
+    client = get_client()
+    rows = (
+        client.table("state_manufacturing_employment")
+        .select("fips, year, value")
+        .execute()
+        .data
+    )
+    if not rows:
+        return []
+    latest_year = max(row["year"] for row in rows)
+    return [{"fips": row["fips"], "value": row["value"]} for row in rows if row["year"] == latest_year]
+
+
 def get_last_updated() -> str | None:
     client = get_client()
     result = (
