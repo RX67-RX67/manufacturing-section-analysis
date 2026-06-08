@@ -7,12 +7,13 @@ load_dotenv()
 
 MODEL = "claude-sonnet-4-6"
 
-# Bump this whenever CHART_REPORT_PROMPT or SUMMARY_PROMPT changes below.
-# It's folded into the cache-invalidation hash in routers/reports.py so
-# prompt edits trigger regeneration even when the underlying data hasn't
-# changed (otherwise the ETL pipeline's unchanged data_hash would make the
-# refresh endpoint skip regeneration and serve stale cached content).
-PROMPT_VERSION = "2"
+# Bump this whenever CHART_REPORT_PROMPT, SUMMARY_PROMPT, or any generation
+# parameter that affects output (e.g. max_tokens) changes below. It's folded
+# into the cache-invalidation hash in routers/reports.py so those edits
+# trigger regeneration even when the underlying data hasn't changed
+# (otherwise the ETL pipeline's unchanged data_hash would make the refresh
+# endpoint skip regeneration and serve stale cached content).
+PROMPT_VERSION = "3"
 
 CHART_PROMPTS = {
     "chart:production": (
