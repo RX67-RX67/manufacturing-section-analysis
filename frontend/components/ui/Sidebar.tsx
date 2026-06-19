@@ -19,10 +19,10 @@ export function Sidebar() {
 
   return (
     <nav
-      className="w-40 min-h-screen self-start p-4 flex flex-col gap-1 sticky top-0"
+      className="w-full lg:w-40 lg:min-h-screen lg:self-start p-3 lg:p-4 flex flex-row lg:flex-col gap-1 overflow-x-auto lg:overflow-x-visible sticky top-0 z-10"
       style={{ background: "var(--card)" }}
     >
-      <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--muted)" }}>
+      <p className="hidden lg:block text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "var(--muted)" }}>
         Sections
       </p>
       {sections.map((s) => (
@@ -30,7 +30,7 @@ export function Sidebar() {
           key={s.href}
           href={s.href}
           onClick={(e) => handleClick(e, s.href)}
-          className="text-sm py-1.5 px-2 rounded hover:bg-white/5 transition-colors"
+          className="text-sm py-1.5 px-2 rounded hover:bg-white/5 transition-colors whitespace-nowrap shrink-0"
           style={{ color: "var(--muted)" }}
         >
           {s.label}

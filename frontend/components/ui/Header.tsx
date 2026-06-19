@@ -10,9 +10,9 @@ interface Props {
       : "Never";
   
     return (
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-6">
         <div>
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text)" }}>
+          <h1 className="text-xl sm:text-2xl font-bold" style={{ color: "var(--text)" }}>
             U.S. Manufacturing Dashboard
           </h1>
           <p className="text-sm" style={{ color: "var(--muted)" }}>

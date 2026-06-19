@@ -42,14 +42,14 @@ export default async function DashboardPage() {
   const latestCap   = capacity.at(-1);
 
   return (
-    <div className="flex min-h-screen" style={{ background: "var(--bg)" }}>
+    <div className="flex flex-col lg:flex-row min-h-screen" style={{ background: "var(--bg)" }}>
       <Sidebar />
 
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-4 sm:p-6">
         <Header lastUpdated={lastUpdated.last_updated} />
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <MetricCard
             label="Production Index"
             value={latestProd?.value.toFixed(1) ?? "—"}
@@ -68,32 +68,32 @@ export default async function DashboardPage() {
         </div>
 
         {/* Chart + Report pairs */}
-        <div id="production" className="grid grid-cols-[3fr_2fr] gap-6 mb-6">
+        <div id="production" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 mb-6">
           <ProductionChart data={production} />
           <ReportPanel reportKey="chart:production" />
         </div>
 
-        <div id="employment" className="grid grid-cols-[3fr_2fr] gap-6 mb-6">
+        <div id="employment" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 mb-6">
           <EmploymentChart data={employment} />
           <ReportPanel reportKey="chart:employment" />
         </div>
 
-        <div id="capacity" className="grid grid-cols-[3fr_2fr] gap-6 mb-6">
+        <div id="capacity" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 mb-6">
           <CapacityGauge data={capacity} />
           <ReportPanel reportKey="chart:capacity" />
         </div>
 
-        <div id="orders" className="grid grid-cols-[3fr_2fr] gap-6 mb-6">
+        <div id="orders" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 mb-6">
           <OrdersChart data={censusData} />
           <ReportPanel reportKey="chart:orders" />
         </div>
 
-        <div id="wages" className="grid grid-cols-[3fr_2fr] gap-6 mb-6">
+        <div id="wages" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 mb-6">
           <WagesChart data={wages} />
           <ReportPanel reportKey="chart:wages" />
         </div>
 
-        <div id="gdp" className="grid grid-cols-[3fr_2fr] gap-6 mb-6">
+        <div id="gdp" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 mb-6">
           <GdpShareChart data={bea} />
           <ReportPanel reportKey="chart:gdp" />
         </div>
